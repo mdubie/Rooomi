@@ -16,11 +16,9 @@ module.exports = {
         desciption: taskObject.desciption,
         assignee: taskObject.assignee,
         assignor: taskObject.assignor,
-        house: taskObject.house,
         createdAt: taskObject.createdAt,
         dueAt: taskObject.dueAt,
         isCompleted: taskObject.isCompleted,
-        isOverdue: taskObject.isOverdue,
       });
   },
 };

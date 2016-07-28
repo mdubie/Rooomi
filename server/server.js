@@ -13,7 +13,6 @@ middleware(app);
 const routers = require('./serverHelpers/routes.js');
 io.on('connection', (socket) => routers(socket));
 
-//define auth routes
 const authRoutes = require('./serverHelpers/authRoutes.js');
 authRoutes(app);
 
