@@ -1,14 +1,14 @@
 import React from 'react';
 import { TaskListEntry } from './TaskListEntry';
 
-export const TaskLists = ({messages}) => {
+export const TaskLists = ({tasks, completeTask}) => {
 	return (
 		<div>
 		<div>
-      {messages.map((entry) => <TaskListEntry messages={entry}/>)}
+      {tasks.map((entry) => <TaskListEntry tasks={entry} completeTask={completeTask}/>)}
 		</div>
 		<div>
-			{messages.map((entry) => <TaskListEntry messages={entry}/>)}
+			{tasks.map((entry) => <TaskListEntry tasks={entry} completeTask={completeTask}/>)}
 		</div>
 		</div>
 	)

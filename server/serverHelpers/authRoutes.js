@@ -8,7 +8,7 @@ const userController = require('../db/user/userController.js');
 module.exports = (app) => {
   app.get('/', auth.passport.authenticate('local', { failureRedirect: '/login', sucessRedirect: '/home'}));
   
-  app.use('/home', express.static(path.join(__dirname, '../../client/index.html')));
+  app.use('/home', express.static(path.join(__dirname, '../../client')));
 
   app.use('/login', express.static(path.join(__dirname, '../../public/login.html')));
 

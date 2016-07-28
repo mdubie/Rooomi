@@ -1,0 +1,35 @@
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
+.innerTaskText {
+  padding: 10px;
+  font-size: 0.5em;
+  font-weight: 600;
+}
+
+.modal {
+  margin-top: 100px;
+  text-align: center;
+  padding: 0!important;
+  width: 93%;
+}
+
+.modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px;
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.addTask {
+  margin: 5px;
+  width: 2.2em;
+}
