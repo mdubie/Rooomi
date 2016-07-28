@@ -21,7 +21,7 @@ module.exports = {
         dueAt: taskObject.dueAt,
         isCompleted: taskObject.isCompleted,
         isOverdue: taskObject.isOverdue,
-      })
+      });
   },
 };
 
