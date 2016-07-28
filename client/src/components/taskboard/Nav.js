@@ -7,7 +7,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
 export const Nav = () => {
 	let AppBarStyle = {
-		background: 'maroon',
+		background: 'linear-gradient(to bottom right, maroon, rgba(0,0,0,0))',
 	}
 	return (<AppBar
 	    style={AppBarStyle}
