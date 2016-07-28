@@ -1,8 +1,10 @@
 import React from 'react';
-import {Modal, Button} from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+
+const socket = require('socket.io-client')();
 
 export default class TaskForm extends React.Component {
   constructor(props) {
@@ -13,7 +15,9 @@ export default class TaskForm extends React.Component {
       showModal: false,
       taskName: '',
       taskDueDate: '',
-      taskInterval: 0
+      taskInterval: 0,
+      assignee: '',
+      assignor: '',
     };
     this.close = this.close.bind(this);
     this.open = this.open.bind(this);
@@ -25,18 +29,18 @@ export default class TaskForm extends React.Component {
 
   close() {
     this.setState({
-      showModal: false
+      showModal: false,
     });
   }
 
   open() {
     this.setState({
-      showModal: true
+      showModal: true,
     });
   }
 
   handleTextFieldChange(e) {
-    var obj = {};
+    const obj = {};
     obj[e.target.name] = e.target.value;
     this.setState(obj);
   }
@@ -48,18 +52,11 @@ export default class TaskForm extends React.Component {
   }
 
   calcDueDateAndInterval() {
-    let hours = n => 1000*60*60*n;
-    let days = n => hours(n) * 24;
+    const hours = n => 1000 * 60 * 60 * n;
+    const days = n => hours(n) * 24;
+    const n = this.state.intervalNum;
 
-    let n = this.state.intervalNum;
-
-    // 1 = hours; 2 = days
-    if (this.state.intervalVal === 1) {
-      this.state.taskInterval = hours(n);
-    } else if (this.state.intervalVal === 2) {
-      this.state.taskInterval = days(n);
-    }
-
+    this.state.intervalVal === 1 ? this.state.taskInterval = hours(n) : days(n);
     this.state.taskDueDate = new Date(Date.now() + this.state.taskInterval);
   }
 
@@ -67,69 +64,71 @@ export default class TaskForm extends React.Component {
     e.preventDefault();
     this.calcDueDateAndInterval();
 
-    let taskName = this.state.taskName;
-    let dueDate =  this.state.taskDueDate;
-    let interval = this.state.taskInterval;
+    const taskName = this.state.taskName;
+    const assignee = this.state.assignee;
+    const assignor = this.props.username;
+    const dueDate =  this.state.taskDueDate;
+    const interval = this.state.taskInterval;
 
+  // Break out of the handleSubmit if there is no taskname or duedate
     if (!taskName || !dueDate) {
       this.close();
       return;
     }
-
-    // socket.emit('create task', {
-    //   name: taskName,
-    //   dueBy: dueDate,
-    //   interval: interval
-    // });
-
-    //this.props.onAddNewTask(taskName, dueDate);
+  // Emit the taskObj to the server created from the modal.
+    socket.emit('addTask', {
+      description: taskName,
+      assignee,
+      assignor,
+      dueAt: dueDate,
+      isCompleted: false,
+    });
+  // State will update and reset taskName and due date back to '';
     this.setState({
       taskName: '',
-      taskDueDate: ''
+      taskDueDate: '',
     });
+  // Close the modal once code is complete.
     this.close();
   }
 
   render() {
-    return(
+    return (
       <div onClick={this.open}>
-        <img className="addTask" src="http://bit.ly/29UZrXq"/>
+        <img className="addTask" alt="addTask" src="http://bit.ly/29UZrXq" />
         <Modal bsSize="small" show={this.state.showModal} onHide={this.close}>
-        <Modal.Header closeButton>
-          <Modal.Title>Add Task</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <TextField name="taskName" hintText="Enter a new task!" onChange={this.handleTextFieldChange}/>
-          <TextField type="number" name="intervalNum" defaultValue="1" onChange={this.handleTextFieldChange}  floatingLabelText="Recurs every:" floatingLabelFixed={true} />
-          <SelectField value={this.state.intervalVal} onChange={this.handleSelectFieldChange}>
-            <MenuItem value={1} primaryText="hour(s)" />
-            <MenuItem value={2} primaryText="day(s)" />
-          </SelectField>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={this.handleSubmit}>Add Task</Button>
-        </Modal.Footer>
+          <Modal.Header closeButton>
+            <Modal.Title>Add Task</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <TextField
+              name="taskName"
+              hintText="Enter a new task!"
+              onChange={this.handleTextFieldChange}
+            />
+            <TextField
+              name="assignee"
+              hintText="Assign to:"
+              onChange={this.handleTextFieldChange}
+            />
+            <TextField
+              type="number"
+              name="intervalNum"
+              defaultValue="1"
+              onChange={this.handleTextFieldChange}
+              floatingLabelText="Complete by:"
+              floatingLabelFixed={true}
+            />
+            <SelectField value={this.state.intervalVal} onChange={this.handleSelectFieldChange}>
+              <MenuItem value={1} primaryText="hour(s)" />
+              <MenuItem value={2} primaryText="day(s)" />
+            </SelectField>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={this.handleSubmit}>Add Task</Button>
+          </Modal.Footer>
         </Modal>
       </div>
     );
   }
 }
-
-// export default AddTask;
-/*  code to add to App.jsx
-
-*** component to add to App.jsx ***
-<div>
-  <AddTask onAddNewTask={this.handleAddNewTask.bind(this)}/>
-</div>
-
-*** handler to add to App.jsx ***
-handleAddNewTask(taskName, dueDate) {
-  // this function will handle
-  // posting new task to db &
-  // add to pending tasks
-  // how to implement???
-  console.log('taskName:', taskName);
-  console.log('dueDate:', dueDate);
-}
-*/
