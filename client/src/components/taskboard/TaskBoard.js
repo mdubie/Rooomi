@@ -1,19 +1,33 @@
 import React from 'react';
 import { TaskLists } from './TaskLists';
-import { Jumbotron, Grid, Row, Col } from 'react-bootstrap';
-// import TaskForm from './TaskForm';
+import { TaskForm } from './TaskForm';
 // import NewTaskEntry from './NewTaskEntry';
 
-
-
 export const TaskBoard = ({ messages }) => {
-	return (
-		<Jumbotron>
-	    <TaskLists messages={messages}>Roommate</TaskLists>
-	    <TaskLists messages={messages}>User</TaskLists>
-    </Jumbotron>
-	);
-}
+  let taskBoardStyle = {
+  	width: '100%',
+  };
+  let styleEntryLeft = {
+  	width: '50%',
+  	block: 'inline',
+  	float: 'left',
+  };
+  let styleEntryRight = {
+  	width: '50%',
+  	block: 'inline',
+  	float: 'right',
+  };
+  return (
+    <div style={taskBoardStyle}>
+      <div style={styleEntryLeft}>
+        <TaskLists messages={messages}>Roommate</TaskLists>
+      </div>
+      <div style={styleEntryRight}>
+        <TaskLists messages={messages}>User</TaskLists>
+      </div>
+      <TaskForm />
+    </div>
+  );
+};
 
-    	// <Header />
 

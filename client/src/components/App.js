@@ -12,7 +12,12 @@ export default class App extends React.Component {
 
     this.state = {
     	username: 'Steven',
-      messages: [{ description: 'Working hello hello hello hello is it working is it working? Hello?', name: 'Roy' }, { description: 'Hello', name: 'Steven' }],
+      messages: [
+        { description: 'Trash', name: 'Roy' },
+        { description: 'Dishes', name: 'Steven' },
+        { description: 'Clean Room', name: 'Steven' },
+        { description: 'Laundry', name: 'Steven' },
+     	],
     };
   }
   render() {
