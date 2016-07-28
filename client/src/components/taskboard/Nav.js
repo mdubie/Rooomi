@@ -5,7 +5,7 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
-export const Nav = () => {
+export const Nav = ({ username }) => {
   const AppBarStyle = {
     background: 'linear-gradient(to bottom right, maroon, rgba(0,0,0,0))',
   };
@@ -15,10 +15,9 @@ export const Nav = () => {
       showMenuIconButton={false}
       title="Rumi"
       iconElementRight={
-        <IconMenu
-          iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-        >
-          <a href="/logout"><MenuItem primaryText="Sign out" /></a>  
+        <IconMenu iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}>
+          <a href="/logout">
+            <MenuItem primaryText="Sign out" /></a>
         </IconMenu>
       }
     />

@@ -30,13 +30,12 @@ export default class App extends React.Component {
     this.completeTask = this.completeTask.bind(this);
   }
 
-
   componentWillMount() {
-    socket.emit('getAllHouseTasks', this.state.house);
+    socket.emit('getUserTasks', this.state.house);
   }
 
   componentDidMount() {
-    socket.on('sentAllHouseTasks', (tasks) => {
+    socket.on('allUserTasks', (tasks) => {
       this.state.tasks = tasks;
     });
   }
@@ -53,7 +52,7 @@ export default class App extends React.Component {
       <MuiThemeProvider className="container">
         <div>
           <div>
-            <Nav />
+            <Nav username={this.state.username} />
             <TaskForm username={this.state.username} />
             <TaskBoard tasks={this.state.tasks} completeTask={this.completeTask} />
             <CompletedFeed tasks={this.state.completedTasks} />
