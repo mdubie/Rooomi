@@ -21,7 +21,7 @@ module.exports = (app) => {
     userController.signup(userCreds, function(err, data) {
       if (!err) {
         if (data) {
-          res.redirect(`/?username=${data.username}&house=${data.house}`);
+          res.redirect(`/home?username=${data.username}&house=${data.house}`);
         } else {
           res.redirect('/signup');
         }
