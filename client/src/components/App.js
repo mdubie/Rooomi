@@ -54,10 +54,14 @@ export default class App extends React.Component {
     return (
       <MuiThemeProvider className="container">
         <div>
+          <div>
           <Nav />
           <TaskForm />
           <TaskBoard tasks={this.state.tasks} completeTask={this.completeTask}/>
           <CompletedFeed tasks={this.state.completedTasks}/>
+        </div>
+        <div>
+        </div>
         </div>
       </MuiThemeProvider>
     );

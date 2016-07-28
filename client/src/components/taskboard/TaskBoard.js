@@ -1,7 +1,6 @@
 import React from 'react';
 import { TaskLists } from './TaskLists';
-import { NewTaskEntry } from './NewTaskEntry';
-// import NewTaskEntry from './NewTaskEntry';
+// import { NewTaskEntry } from './NewTaskEntry';
 
 
 
@@ -28,10 +27,10 @@ export const TaskBoard = ({ tasks, completeTask }) => {
         <TaskLists tasks={tasks} completeTask={completeTask}>User</TaskLists>
       </div>
       <div style={styleEntryRight}>
-
         <TaskLists tasks={tasks}>Roommate</TaskLists>
       </div>
-      <NewTaskEntry />
+      <div>
+      </div>
     </div>
   );
 };

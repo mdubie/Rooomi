@@ -2,8 +2,12 @@ import React from 'react';
 import CompletedFeedEntry from './CompletedFeedEntry';
 
 export const CompletedFeed = ({tasks}) => {
+	let style = {
+  	width: '100%',
+  	float: 'left',
+  };
 	return (
-		<div>
+		<div style={style}>
 		  {tasks.map((task) => <CompletedFeedEntry task={task} />)}
 		</div>
 	);

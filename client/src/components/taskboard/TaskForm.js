@@ -15,6 +15,12 @@ export default class TaskForm extends React.Component {
       taskDueDate: '',
       taskInterval: 0
     };
+    this.close = this.close.bind(this);
+    this.open = this.open.bind(this);
+    this.handleTextFieldChange = this.handleTextFieldChange.bind(this);
+    this.handleSelectFieldChange = this.handleSelectFieldChange.bind(this);
+    this.calcDueDateAndInterval = this.calcDueDateAndInterval.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   close() {
@@ -37,7 +43,7 @@ export default class TaskForm extends React.Component {
 
   handleSelectFieldChange(e, i, v) {
     this.setState({
-      intervalVal: v
+      intervalVal: v,
     });
   }
 
@@ -86,22 +92,22 @@ export default class TaskForm extends React.Component {
 
   render() {
     return(
-      <div onClick={this.open.bind(this)}>
+      <div onClick={this.open}>
         <img className="addTask" src="http://bit.ly/29UZrXq"/>
-        <Modal bsSize="small" show={this.state.showModal} onHide={this.close.bind(this)}>
+        <Modal bsSize="small" show={this.state.showModal} onHide={this.close}>
         <Modal.Header closeButton>
           <Modal.Title>Add Task</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <TextField name="taskName" hintText="Enter a new task!" onChange={this.handleTextFieldChange.bind(this)}/>
-          <TextField type="number" name="intervalNum" defaultValue="1" onChange={this.handleTextFieldChange.bind(this)}  floatingLabelText="Recurs every:" floatingLabelFixed={true} />
-          <SelectField value={this.state.intervalVal} onChange={this.handleSelectFieldChange.bind(this)}>
+          <TextField name="taskName" hintText="Enter a new task!" onChange={this.handleTextFieldChange}/>
+          <TextField type="number" name="intervalNum" defaultValue="1" onChange={this.handleTextFieldChange}  floatingLabelText="Recurs every:" floatingLabelFixed={true} />
+          <SelectField value={this.state.intervalVal} onChange={this.handleSelectFieldChange}>
             <MenuItem value={1} primaryText="hour(s)" />
             <MenuItem value={2} primaryText="day(s)" />
           </SelectField>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.handleSubmit.bind(this)}>Add Task</Button>
+          <Button onClick={this.handleSubmit}>Add Task</Button>
         </Modal.Footer>
         </Modal>
       </div>
