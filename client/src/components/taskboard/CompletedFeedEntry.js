@@ -1,12 +1,11 @@
 import React from 'react';
-import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import { Card, CardHeader } from 'material-ui/Card';
 
 let style = {
   padding: '6px',
 };
 
-const CompletedFeedEntry = ({task}) => (
+const CompletedFeedEntry = ({ task }) => (
   <Card>
     <CardHeader
       title={task.description}
