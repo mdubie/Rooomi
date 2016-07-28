@@ -40,8 +40,7 @@ export default class App extends React.Component {
       this.state.tasks = tasks;
     });
   }
-  // WillMount
-    // Socket to get tasks
+
   completeTask() {
     const task = this.state.completedTasks.slice();
     task.push({ description: 'Laundry', assignor: 'Steven' });
