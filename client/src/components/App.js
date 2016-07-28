@@ -55,9 +55,9 @@ export default class App extends React.Component {
         <div>
           <div>
             <Nav />
-            <TaskForm username={this.state.username}/>
-            <TaskBoard tasks={this.state.tasks} completeTask={this.completeTask}/>
-            <CompletedFeed tasks={this.state.completedTasks}/>
+            <TaskForm username={this.state.username} />
+            <TaskBoard tasks={this.state.tasks} completeTask={this.completeTask} />
+            <CompletedFeed tasks={this.state.completedTasks} />
           </div>
         </div>
       </MuiThemeProvider>
