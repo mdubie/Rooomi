@@ -29,7 +29,7 @@ export const TaskListEntry = ({tasks, completeTask}) => {
           onTouchTap={() => completeTask()}
         >
           <div className="innerTaskText">
-            {tasks.description} - {tasks.name}
+            {tasks.description} - {tasks.assignor}
           </div>
         </Paper>
       </div>

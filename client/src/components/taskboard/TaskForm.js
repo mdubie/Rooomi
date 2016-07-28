@@ -13,7 +13,9 @@ export default class TaskForm extends React.Component {
       showModal: false,
       taskName: '',
       taskDueDate: '',
-      taskInterval: 0
+      taskInterval: 0,
+      assignee: '',
+      assignor: '',
     };
     this.close = this.close.bind(this);
     this.open = this.open.bind(this);
@@ -68,6 +70,8 @@ export default class TaskForm extends React.Component {
     this.calcDueDateAndInterval();
 
     let taskName = this.state.taskName;
+    let assignee = this.state.assignee;
+    let assignor = 'test'
     let dueDate =  this.state.taskDueDate;
     let interval = this.state.taskInterval;
 
@@ -76,16 +80,19 @@ export default class TaskForm extends React.Component {
       return;
     }
 
-    // socket.emit('create task', {
-    //   name: taskName,
-    //   dueBy: dueDate,
-    //   interval: interval
-    // });
+    socket.emit('addTask', {
+      description: taskName,
+      assignee: this.state.assignee,
+      assignor: this.props.username,
+      dueAt: dueDate,
+      isCompleted: false,
 
-    //this.props.onAddNewTask(taskName, dueDate);
+    });
+
+
     this.setState({
       taskName: '',
-      taskDueDate: ''
+      taskDueDate: '',
     });
     this.close();
   }
@@ -100,7 +107,8 @@ export default class TaskForm extends React.Component {
         </Modal.Header>
         <Modal.Body>
           <TextField name="taskName" hintText="Enter a new task!" onChange={this.handleTextFieldChange}/>
-          <TextField type="number" name="intervalNum" defaultValue="1" onChange={this.handleTextFieldChange}  floatingLabelText="Recurs every:" floatingLabelFixed={true} />
+          <TextField name="assignee" hintText="Assign to:" onChange={this.handleTextFieldChange}/>
+          <TextField type="number" name="intervalNum" defaultValue="1" onChange={this.handleTextFieldChange}  floatingLabelText="Complete by:" floatingLabelFixed={true} />
           <SelectField value={this.state.intervalVal} onChange={this.handleSelectFieldChange}>
             <MenuItem value={1} primaryText="hour(s)" />
             <MenuItem value={2} primaryText="day(s)" />

@@ -15,15 +15,15 @@ export default class App extends React.Component {
     super(props);
 
     this.state = {
-      username: 'Steven',
+      username: 'user1',
       tasks: [
-        { description: 'Trash', name: 'Roy' },
-        { description: 'Dishes', name: 'Steven' },
-        { description: 'Clean Room', name: 'Steven' },
-        { description: 'Laundry', name: 'Steven' },
+        { description: 'Trash', assignor: 'Roy' },
+        { description: 'Dishes', assignor: 'Steven' },
+        { description: 'Clean Room', assignor: 'Steven' },
+        { description: 'Laundry', assignor: 'Steven' },
       ],
       completedTasks: [
-        { description: 'Eat', name: 'Roy' },
+        { description: 'Eat', assignor: 'Roy' },
       ],
       house: 'QueriedHouse',
     };
@@ -32,7 +32,7 @@ export default class App extends React.Component {
 
   completeTask(e) {
    var task = this.state.completedTasks.slice();
-   task.push({ description: 'Laundry', name: 'Steven' });
+   task.push({ description: 'Laundry', assignor: 'Steven' });
    this.setState({
      completedTasks: task,
    });
@@ -56,7 +56,7 @@ export default class App extends React.Component {
         <div>
           <div>
           <Nav />
-          <TaskForm />
+          <TaskForm username={this.state.username}/>
           <TaskBoard tasks={this.state.tasks} completeTask={this.completeTask}/>
           <CompletedFeed tasks={this.state.completedTasks}/>
         </div>
