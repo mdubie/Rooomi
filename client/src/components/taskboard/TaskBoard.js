@@ -3,7 +3,12 @@ import { TaskLists } from './TaskLists';
 import { NewTaskEntry } from './NewTaskEntry';
 // import NewTaskEntry from './NewTaskEntry';
 
-export const TaskBoard = ({ messages }) => {
+
+
+// Make this component Stateful
+// Will pass down a roommmate name
+
+export const TaskBoard = ({ tasks, completeTask }) => {
   let taskBoardStyle = {
   	width: '100%',
   };
@@ -20,10 +25,11 @@ export const TaskBoard = ({ messages }) => {
   return (
     <div style={taskBoardStyle}>
       <div style={styleEntryLeft}>
-        <TaskLists messages={messages}>Roommate</TaskLists>
+        <TaskLists tasks={tasks} completeTask={completeTask}>User</TaskLists>
       </div>
       <div style={styleEntryRight}>
-        <TaskLists messages={messages}>User</TaskLists>
+
+        <TaskLists tasks={tasks}>Roommate</TaskLists>
       </div>
       <NewTaskEntry />
     </div>
