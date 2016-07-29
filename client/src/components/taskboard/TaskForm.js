@@ -4,8 +4,6 @@ import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 
-const socket = require('socket.io-client')();
-
 export default class TaskForm extends React.Component {
   constructor(props) {
     super(props);
@@ -76,7 +74,7 @@ export default class TaskForm extends React.Component {
       return;
     }
   // Emit the taskObj to the server created from the modal.
-    socket.emit('addTask', {
+    this.props.socket.emit('addTask', {
       description: taskName,
       assignee,
       assignor,

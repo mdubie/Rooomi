@@ -6,7 +6,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import TaskForm from './taskBoard/TaskForm';
 
-const socket = require('socket.io-client')(/* http://127.0.0.1:3000 */);
+const socket = require('socket.io-client')();
 
 injectTapEventPlugin();
 
@@ -26,15 +26,48 @@ export default class App extends React.Component {
   }
 
   componentWillMount() {
-    socket.emit('getAllTasks', this.state.house); 
+    socket.emit('getAllTasks', this.state.house);
     socket.on('allTasks', (allTasks) => {
       this.setState({
         tasks: allTasks,
       });
     });
+    socket.on('addTask', (allTasks) => {
+      console.log('allTasks ' , allTasks);
+    });
   }
 
+  componentWillMount() {
+     // Request for current user and home through a get request to /getCurrentUser
+     // Will receive JSON object with the user information.
+     
+     $.ajax({
+     
+     })
+
+     socket.emit('getAllTasks', this.state.house);
+     socket.emit('getAllUsers', this.state.house);
+     
+     socket.on('allUsers', (allUsers) => {
+       this.setState({
+         roommates: allUsers,
+       });
+     });
+     socket.on('allTasks', (allTasks) => {
+       this.setState({
+         tasks: allTasks,
+       });
+     });
+     socket.on('addTask', (taskObj) => {
+       this.setState({
+         tasks: this.state.tasks.concat(taskObj),
+       });
+     });
+     //complete task listener
+   }
+
   completeTask(taskObj) {
+    //complete task emitter
     const task = this.state.completedTasks.slice();
     task.push({ description: 'Laundry', assignor: 'Steven' });
     this.setState({
@@ -47,7 +80,7 @@ export default class App extends React.Component {
         <div>
           <div>
             <Nav username={this.state.username} />
-            <TaskForm username={this.state.username} />
+            <TaskForm socket={socket} username={this.state.username} />
             <TaskBoard tasks={this.state.tasks} completeTask={this.completeTask} />
             <CompletedFeed tasks={this.state.completedTasks} />
           </div>
