@@ -21,5 +21,8 @@ module.exports = {
         isCompleted: taskObject.isCompleted,
       });
   },
+
+  //completeTask
+  
 };
 
