@@ -10,7 +10,9 @@ module.exports = (socket) => {
 
   socket.on('getAllUsers', (house) => {
     userController.getAllUsers(house, (allUsers) => {
-      socket.emit('allUsers', allUsers);
+      const allUsermames = allUsers.map(user => user.username);
+      console.log('allUsermames ' , allUsermames);
+      socket.emit('allUsers', allUsermames);
     });
   });
 
