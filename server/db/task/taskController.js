@@ -20,12 +20,20 @@ module.exports = {
         createdAt: taskObject.createdAt,
         dueAt: taskObject.dueAt,
         isCompleted: taskObject.isCompleted,
+      }, (err, data) => {
+        if (err) { callback(false); }
+        if (!err) { callback(data); }
       });
   },
 
   completeTask(taskObject, callback) {
-
+    Task
+      .update({ _id: taskObject._id },
+        { isCompleted: true },
+        (err, data) => {
+          if (err) { callback(false); }
+          if (!err) { callback(data); }
+        });
   },
-
 };
 
