@@ -15,13 +15,8 @@ export default class App extends React.Component {
     super(props);
 
     this.state = {
-      username: 'user1',
-      tasks: [
-        { description: 'Trash', assignor: 'Roy' },
-        { description: 'Dishes', assignor: 'Steven' },
-        { description: 'Clean Room', assignor: 'Steven' },
-        { description: 'Laundry', assignor: 'Steven' },
-      ],
+      username: 'Steven',
+      tasks: [],
       completedTasks: [
         { description: 'Eat', assignor: 'Roy' },
       ],
@@ -31,16 +26,15 @@ export default class App extends React.Component {
   }
 
   componentWillMount() {
-    socket.emit('getUserTasks', this.state.house);
-  }
-
-  componentDidMount() {
-    socket.on('allUserTasks', (tasks) => {
-      this.state.tasks = tasks;
+    socket.emit('getAllTasks');
+    socket.on('allTasks', (allTasks) => {
+      this.setState({
+        tasks: allTasks,
+      });
     });
   }
 
-  completeTask() {
+  completeTask(taskObj) {
     const task = this.state.completedTasks.slice();
     task.push({ description: 'Laundry', assignor: 'Steven' });
     this.setState({

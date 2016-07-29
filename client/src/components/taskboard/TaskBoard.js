@@ -18,7 +18,7 @@ export const TaskBoard = ({ tasks, completeTask }) => {
   return (
     <div style={taskBoardStyle}>
       <div style={styleEntryLeft}>
-        <TaskLists tasks={tasks} completeTask={completeTask}>User</TaskLists>
+        <TaskLists tasks={tasks.filter(task => task.assignee === 'Steven')} completeTask={completeTask}>User</TaskLists>
       </div>
       <div style={styleEntryRight}>
         <TaskLists tasks={tasks}>Roommate</TaskLists>

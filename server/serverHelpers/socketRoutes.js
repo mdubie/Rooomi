@@ -12,4 +12,10 @@ module.exports = (socket) => {
     socket.emit('oneUserTask', taskObject);
     taskController.addTask(taskObject);
   });
+
+  socket.on('getAllTasks', () => {
+    taskController.getAllTasks((allTasks) => {
+      socket.emit('allTasks', allTasks);
+    });
+  });
 };

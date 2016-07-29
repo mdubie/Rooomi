@@ -6,8 +6,14 @@ module.exports = {
   getUserTasks: (username, callback) => {
     Task
       .find()
-      .where('asignee').equals(username)
+      .where('assignee').equals(username)
       .exec(callback);
+  },
+
+  getAllTasks: (callback) => {
+    Task
+      .find()
+      .then(callback);
   },
 
   addTask: (taskObject) => {

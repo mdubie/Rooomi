@@ -6,7 +6,4 @@ export const TaskLists = ({ tasks, completeTask }) =>
     <div>
       {tasks.map((entry) => <TaskListEntry tasks={entry} completeTask={completeTask} />)}
     </div>
-    <div>
-      {tasks.map((entry) => <TaskListEntry tasks={entry} completeTask={completeTask} />)}
-    </div>
   </div>;
