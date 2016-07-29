@@ -15,12 +15,14 @@ module.exports = (socket) => {
   });
 
   socket.on('addTask', (taskObject) => {
-    taskController.addTask(taskObject, (err, data) => {
-      if (data) { socket.emit('addTask', taskObject); }
+    taskController.addTask(taskObject, (dbTaskObject) => {
+      if (dbTaskObject) { socket.emit('addTask', dbTaskObject); }
     });
   });
 
-  // socket.on('completeTask', (taskObject) => {
-
-  // });
+  socket.on('completeTask', (taskObject) => {
+    taskController.completeTask(taskObject, (dbTaskObject) => {
+      if (dbTaskObject) { socket.emit('completeTask', dbTaskObject); }
+    });
+  });
 };
