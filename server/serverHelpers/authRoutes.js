@@ -41,6 +41,3 @@ module.exports = (app) => {
     res.redirect('/');
   });
 };
-
-
-        // ? `/home?username=${data.username}&house=${data.house}`
