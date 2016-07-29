@@ -23,6 +23,10 @@ module.exports = (app) => {
     res.sendFile(path.join(__dirname, '../../public/signup.html'));
   });
 
+  app.get('getCurrentUser', (req, res) => {
+    res.send(req.user);
+  });
+
   app.use('/home', isAuthenticated, express.static(path.join(__dirname, '../../client/')));
 
   app.post('/login', auth.passport.authenticate('local', { failureRedirect: '/login', successRedirect: '/home'}));
