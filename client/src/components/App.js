@@ -15,13 +15,8 @@ export default class App extends React.Component {
     super(props);
 
     this.state = {
-      username: 'user1',
-      tasks: [
-        { description: 'Trash', assignor: 'Roy' },
-        { description: 'Dishes', assignor: 'Steven' },
-        { description: 'Clean Room', assignor: 'Steven' },
-        { description: 'Laundry', assignor: 'Steven' },
-      ],
+      username: 'Steven',
+      tasks: [],
       completedTasks: [
         { description: 'Eat', assignor: 'Roy' },
       ],
@@ -30,18 +25,16 @@ export default class App extends React.Component {
     this.completeTask = this.completeTask.bind(this);
   }
 
-
   componentWillMount() {
-    socket.emit('getAllHouseTasks', this.state.house);
-  }
-
-  componentDidMount() {
-    socket.on('sentAllHouseTasks', (tasks) => {
-      this.state.tasks = tasks;
+    socket.emit('getAllTasks');
+    socket.on('allTasks', (allTasks) => {
+      this.setState({
+        tasks: allTasks,
+      });
     });
   }
 
-  completeTask() {
+  completeTask(taskObj) {
     const task = this.state.completedTasks.slice();
     task.push({ description: 'Laundry', assignor: 'Steven' });
     this.setState({
@@ -53,7 +46,7 @@ export default class App extends React.Component {
       <MuiThemeProvider className="container">
         <div>
           <div>
-            <Nav />
+            <Nav username={this.state.username} />
             <TaskForm username={this.state.username} />
             <TaskBoard tasks={this.state.tasks} completeTask={this.completeTask} />
             <CompletedFeed tasks={this.state.completedTasks} />

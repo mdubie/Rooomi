@@ -95,8 +95,16 @@ export default class TaskForm extends React.Component {
   render() {
     return (
       <div onClick={this.open}>
-        <img className="addTask" alt="addTask" src="http://bit.ly/29UZrXq" />
-        <Modal bsSize="small" show={this.state.showModal} onHide={this.close}>
+        <img
+          className="addTask"
+          alt="addTask"
+          src="http://bit.ly/29UZrXq"
+        />
+        <Modal
+          bsSize="small"
+          show={this.state.showModal}
+          onHide={this.close}
+        >
           <Modal.Header closeButton>
             <Modal.Title>Add Task</Modal.Title>
           </Modal.Header>
