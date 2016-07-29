@@ -3,32 +3,29 @@ const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 
 module.exports = {
-  getUserTasks: (username, callback) => {
+  getAllTasks(house, callback) {
     Task
       .find()
-      .where('assignee').equals(username)
-      .exec(callback);
-  },
-
-  getAllTasks: (callback) => {
-    Task
-      .find()
+      .where('house').equals(house)
       .then(callback);
   },
 
-  addTask: (taskObject) => {
+  addTask(taskObject, callback) {
     Task
       .create({
         desciption: taskObject.desciption,
         assignee: taskObject.assignee,
         assignor: taskObject.assignor,
+        house: taskObject.assignor,
         createdAt: taskObject.createdAt,
         dueAt: taskObject.dueAt,
         isCompleted: taskObject.isCompleted,
       });
   },
 
-  //completeTask
-  
+  completeTask(taskObject, callback) {
+
+  },
+
 };
 

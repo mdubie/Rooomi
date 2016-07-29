@@ -6,7 +6,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import TaskForm from './taskBoard/TaskForm';
 
-const socket = require('socket.io-client')();
+const socket = require('socket.io-client')(/* http://127.0.0.1:3000 */);
 
 injectTapEventPlugin();
 
@@ -26,7 +26,7 @@ export default class App extends React.Component {
   }
 
   componentWillMount() {
-    socket.emit('getAllTasks');
+    socket.emit('getAllTasks', this.state.house); 
     socket.on('allTasks', (allTasks) => {
       this.setState({
         tasks: allTasks,
