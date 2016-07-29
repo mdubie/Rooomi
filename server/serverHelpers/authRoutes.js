@@ -23,7 +23,7 @@ module.exports = (app) => {
     res.sendFile(path.join(__dirname, '../../public/signup.html'));
   });
 
-  app.get('getCurrentUser', (req, res) => {
+  app.get('/getCurrentUser', (req, res) => {
     res.send(req.user);
   });
 
