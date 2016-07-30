@@ -1,9 +1,9 @@
 import React from 'react';
 import { TaskListEntry } from './TaskListEntry';
 
-export const TaskLists = ({ tasks, completeTask }) =>
+export const TaskLists = ({ tasks }) =>
   <div>
     <div>
-      {tasks.map((entry) => <TaskListEntry key={entry._id} tasks={entry} completeTask={completeTask} />)}
+      {tasks.map((task) => <TaskListEntry task={task} />)}
     </div>
   </div>;
