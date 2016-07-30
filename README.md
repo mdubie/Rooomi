@@ -20,6 +20,5 @@ XUsers are prompted to click on their task to mark as complete
 BUGS
 Task clicks are responsive in real time
 User can select available rooms from house to join
-
-
+this.props.house not available on initial firing
 
