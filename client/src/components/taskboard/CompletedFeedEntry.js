@@ -1,19 +1,10 @@
 import React from 'react';
-import { Card, CardHeader } from 'material-ui/Card';
-
-let style = {
-  padding: '6px',
-};
+import { ListGroupItem } from 'react-bootstrap';
 
 const CompletedFeedEntry = ({ task }) => (
-  <Card>
-    <CardHeader
-      title={task.description}
-      subtitle={`Completed by ${task.assignor}`}
-      avatar="http://lorempixel.com/100/100/nature/"
-      style={style}
-    />
-  </Card>
+  <ListGroupItem >
+    {task.description} - Assignor: {task.assignor} - Assignee: {task.assignee}
+  </ListGroupItem>
 );
 
 export default CompletedFeedEntry;
