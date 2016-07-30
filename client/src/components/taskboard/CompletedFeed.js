@@ -4,7 +4,7 @@ import { Panel, ListGroup } from 'react-bootstrap';
 
 export const CompletedFeed = ({ tasks }) => {
   return (
-    <Panel collapsible defaultExpanded header="Completed Feed">
+    <Panel bsStyle="info" collapsible defaultExpanded header="Completed Feed">
       <ListGroup fill>
         {tasks.map((task) => <CompletedFeedEntry key={task._id} task={task} />)}
       </ListGroup>
