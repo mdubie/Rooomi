@@ -29,7 +29,7 @@ module.exports = {
   completeTask(taskObject, callback) {
     Task
       .update({ _id: taskObject._id },
-        { isCompleted: false },
+        { isCompleted: true },
         (err, data) => {
           if (err) { callback(false); }
           if (!err) { callback(taskObject); }

@@ -12,7 +12,7 @@ export const TaskLists = ({ isUser, house, username, tasks, socket }) => {
   <div>
     <Panel collapsible defaultExpanded header={ header }>
       <ListGroup fill>
-        {tasks.map((task) => <TaskListEntry key={task._id} username={username} task={task} socket={socket} />)}
+        {tasks.map((task) => <TaskListEntry isUser={isUser} key={task._id} username={username} task={task} socket={socket} />)}
       </ListGroup>
     </Panel>
   </div>
