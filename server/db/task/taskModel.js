@@ -12,7 +12,4 @@ const taskSchema = mongoose.Schema({
 
 const Task = mongoose.model('Task', taskSchema);
 
-//Task.create({ description: 'Code', assignee: 'Steven', assignor: 'Roy', dueAt: Date.now(), isCompleted: false });
-//Task.create({ description: 'Brush', assignee: 'Roy', assignor: 'Steven', dueAt: Date.now(), isCompleted: false });
-
 module.exports = Task;

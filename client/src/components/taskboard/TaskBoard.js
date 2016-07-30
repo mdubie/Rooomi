@@ -1,7 +1,7 @@
 import React from 'react';
 import { TaskLists } from './TaskLists';
 
-export const TaskBoard = ({ username, tasks }) => {
+export const TaskBoard = ({ username, tasks, socket }) => {
   let taskBoardStyle = {
     width: '100%',
   };
@@ -18,10 +18,10 @@ export const TaskBoard = ({ username, tasks }) => {
   return (
     <div style={taskBoardStyle}>
       <div style={styleEntryLeft}>
-        <TaskLists tasks={tasks.filter(task => task.assignee === username)}>User</TaskLists>
+        <TaskLists username={username} tasks={tasks.filter(task => task.assignee === username)} socket={socket}>User</TaskLists>
       </div>
       <div style={styleEntryRight}>
-        <TaskLists tasks={tasks.filter(task => task.assignee !== username)}>Roommate</TaskLists>
+        <TaskLists username={username} tasks={tasks.filter(task => task.assignee !== username)} socket={socket}>Roommate</TaskLists>
       </div>
     </div>
   );
