@@ -3,6 +3,8 @@ import { Modal, Button } from 'react-bootstrap';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import socket from './sockio';
+
 
 export default class TaskForm extends React.Component {
   constructor(props) {
@@ -15,8 +17,8 @@ export default class TaskForm extends React.Component {
       taskDueDate: '',
       taskInterval: 0,
       assignee: '',
-      assignor: '',
     };
+
     this.close = this.close.bind(this);
     this.open = this.open.bind(this);
     this.handleTextFieldChange = this.handleTextFieldChange.bind(this);
@@ -65,8 +67,8 @@ export default class TaskForm extends React.Component {
     const taskName = this.state.taskName;
     const assignee = this.state.assignee;
     const assignor = this.props.username;
-    const dueDate =  this.state.taskDueDate;
-    const interval = this.state.taskInterval;
+    const dueDate = this.state.taskDueDate;
+    // const interval = this.state.taskInterval;
 
   // Break out of the handleSubmit if there is no taskname or duedate
     if (!taskName || !dueDate) {
@@ -74,10 +76,11 @@ export default class TaskForm extends React.Component {
       return;
     }
   // Emit the taskObj to the server created from the modal.
-    this.props.socket.emit('addTask', {
+    socket.emit('addTask', {
       description: taskName,
       assignee,
       assignor,
+      house: this.props.house,
       dueAt: dueDate,
       isCompleted: false,
     });
