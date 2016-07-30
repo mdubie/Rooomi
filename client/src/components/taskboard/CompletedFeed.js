@@ -8,7 +8,9 @@ export const CompletedFeed = ({ tasks }) => {
   };
   return (
     <div style={style}>
-      {tasks.map((task) => <CompletedFeedEntry task={task} />)}
+      {tasks
+        .filter(task => task.isCompleted)
+        .map((task) => <CompletedFeedEntry key={task._id} task={task} />)}
     </div>
   );
 };

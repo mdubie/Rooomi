@@ -1,15 +1,10 @@
 import React from 'react';
-import { TaskBoard } from './taskboard/TaskBoard';
-import { Nav } from './taskboard/Nav';
-import { CompletedFeed } from './taskboard/CompletedFeed';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-import TaskForm from './taskBoard/TaskForm';
 import $ from 'jquery';
-
-import socket from './taskBoard/sockio';
-
-injectTapEventPlugin();
+import { TaskBoard } from './taskboard/TaskBoard';
+import TaskForm from './taskBoard/TaskForm';
+import { PageNav } from './taskboard/Nav';
+import { CompletedFeed } from './taskboard/CompletedFeed';
+import Messenger from './messenger/Messenger.js';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -19,10 +14,13 @@ export default class App extends React.Component {
       username: '',
       house: '',
       tasks: [],
+      roommates: [],
     };
   }
 
   componentWillMount() {
+    const socket = this.props.socket;
+
     const self = this;
     $.ajax({
       method: 'GET',
@@ -32,8 +30,8 @@ export default class App extends React.Component {
         house: data.house,
         username: data.username,
       });
-      socket.emit('getAllTasks', this.state.house);
       socket.emit('getAllUsers', this.state.house);
+      socket.emit('getAllTasks', this.state.house);
     });
 
     socket.on('allUsers', (allUsers) => {
@@ -49,35 +47,40 @@ export default class App extends React.Component {
     });
 
     socket.on('addTask', (taskObj) => {
+      const newTasks = this.state.tasks.concat(taskObj);
       this.setState({
-        tasks: this.state.tasks.concat(taskObj),
+        tasks: newTasks,
       });
     });
 
     socket.on('completeTask', (taskObj) => {
-      const returnedTask = taskObj;
-      this.setState({
-        tasks: this.state.tasks.map((task) => {
-          if (task._id === returnedTask._id) {
-            !task.isCompleted
-          }
-        })
-      });
+      if (taskObj) {
+        const newTasks = this.state.tasks.slice();
+        const taskIds = newTasks.slice().map(task => task._id);
+        const index = taskIds.indexOf(taskObj._id);
+        newTasks[index] = taskObj;
+        this.setState({
+          tasks: newTasks,
+        });
+      }
     });
   }
 
   render() {
+    let appStyle = {
+      width: '100%',
+      height: '100%',
+      border: '1px solid #666',
+    };
+
     return (
-      <MuiThemeProvider className="container">
-        <div>
-          <div>
-            <Nav username={this.state.username} />
-            <TaskForm username={this.state.username} house={this.state.house} />
-            <TaskBoard username={this.state.username} tasks={this.state.tasks} />
-            <CompletedFeed tasks={this.state.tasks} />
-          </div>
-        </div>
-      </MuiThemeProvider>
+      <div style={appStyle}>
+        <PageNav roommates={this.state.roommates} username={this.state.username} house={this.state.house} />
+        <TaskForm roommates={this.state.roommates} username={this.state.username} house={this.state.house} socket={this.props.socket} />
+        <TaskBoard username={this.state.username} tasks={this.state.tasks} house={this.state.house} socket={this.props.socket} />
+        <CompletedFeed tasks={this.state.tasks} />
+        <Messenger username={this.state.username} house={this.state.house} socket={this.props.socket} />
+      </div>
     );
   }
 }

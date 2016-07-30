@@ -1,25 +1,28 @@
 import React from 'react';
-import AppBar from 'material-ui/AppBar';
-import IconButton from 'material-ui/IconButton';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import { Navbar, NavItem, Nav, NavDropdown, MenuItem } from 'react-bootstrap';
 
-export const Nav = ({ username }) => {
-  const AppBarStyle = {
-    background: 'linear-gradient(to bottom right, maroon, rgba(0,0,0,0))',
-  };
+
+export const PageNav = ({ username, roommates, house }) => {
   return (
-    <AppBar
-      style={AppBarStyle}
-      showMenuIconButton={false}
-      title="Rumi"
-      iconElementRight={
-        <IconMenu iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}>
-          <a href="/logout">
-            <MenuItem primaryText="Sign out" /></a>
-        </IconMenu>
-      }
-    />
+    <Navbar inverse>
+      <Navbar.Header>
+        <Navbar.Brand>
+          <a href="/home">Roomi</a>
+        </Navbar.Brand>
+        <Navbar.Toggle />
+      </Navbar.Header>
+      <Navbar.Collapse>
+        <Nav>
+          <NavItem href="/logout">{username}</NavItem>
+          <NavItem eventKey={2} href="/home">{house}</NavItem>
+          <NavDropdown eventKey={3} title="See Roomates" id="basic-nav-dropdown">
+            {roommates.map((roommate) => (<MenuItem>{roommate}</MenuItem>))}
+          </NavDropdown>
+        </Nav>
+        <Nav pullRight>
+          <NavItem eventKey={4} href="/logout">Logout</NavItem>
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
   );
 };

@@ -40,7 +40,7 @@ module.exports = (app) => {
     });
   });
 
-  app.post('/signout', (req, res) => {
+  app.get('/logout', (req, res) => {
     req.logout();
     res.redirect('/');
   });
