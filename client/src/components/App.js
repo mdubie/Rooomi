@@ -34,6 +34,7 @@ export default class App extends React.Component {
       });
       socket.emit('getAllUsers', this.state.house);
       socket.emit('getAllTasks', this.state.house);
+      socket.emit('getAllMessages', this.state.house);
     });
 
     socket.on('allUsers', (allUsers) => {
@@ -67,7 +68,7 @@ export default class App extends React.Component {
       }
     });
   }
-
+  
   render() {
     let appStyle = {
       width: '100%',

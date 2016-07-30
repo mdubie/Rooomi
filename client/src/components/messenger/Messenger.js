@@ -14,8 +14,6 @@ export default class Messenger extends React.Component {
   componentWillMount() {
     const socket = this.props.socket;
 
-    socket.emit('getAllMessages', this.props.house);
-
     socket.on('getAllMessages', (allMessages) => {
       this.setState({
         messages: allMessages,
