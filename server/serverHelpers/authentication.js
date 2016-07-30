@@ -17,9 +17,11 @@ passport.use(new Strategy(
 passport.use(new FBStrategy({
   clientID: '169564226797360',
     clientSecret: 'f9a6e6f6a452fb18fa720c89d5ced750',
-    callbackURL: '/login/facebook/return'
+    callbackURL: '/login/facebook/return',
+    profileFields: ['id', 'name','picture.type(large)', 'emails', 'displayName', 'about', 'gender']
   },
   function(accessToken, refreshToken, profile, cb) {
+    console.log(profile);
     return cb(null, profile);
   })
 );
