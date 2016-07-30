@@ -83,10 +83,6 @@ export default class App extends React.Component {
     });
   }
 
-  // componentDidMount() {
-
-  // }
-
   completeTask(t) {
     console.log(t);
     //complete task emitter
