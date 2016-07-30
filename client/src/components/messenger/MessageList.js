@@ -6,11 +6,8 @@ export const MessageList = ({ messages }) => (
   <div>
     <Panel collapsible defaultExpanded header="Messages">
       <ListGroup fill>
-        {messages.map((message) => <MessageEntry message={message} />)}
+        {messages.map((message) => <MessageEntry key={message._id} message={message} />)}
       </ListGroup>
     </Panel>
   </div>
 );
-
-//add key from db once we connect it
-//key={message._id}

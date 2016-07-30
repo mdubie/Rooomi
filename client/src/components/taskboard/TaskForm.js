@@ -13,6 +13,14 @@ export default class TaskForm extends React.Component {
     };
   }
 
+  componentWillMount() {
+    let date = new Date();
+    date = date.toISOString();
+    this.setState({
+      dueAt: date,
+    });
+  }
+
   close() {
     this.setState({
       showModal: false,
@@ -112,7 +120,7 @@ export default class TaskForm extends React.Component {
                   placeholder="select"
                   onChange={this.handleRoommateChange.bind(this)}
                 >
-                  {this.props.roommates.map(roomate => <option value={roomate}>{roomate}</option>)}
+                  {this.props.roommates.map(roomate => <option key={roomate} value={roomate}>{roomate}</option>)}
                 </FormControl>
               </FormGroup>
               <FormGroup>
