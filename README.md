@@ -2,19 +2,17 @@
 task manager for roomates
 
 
-Rooomi functionality
+ROOMI FUNCTIONALITY
 
+XUser can view their tasks
+XUser can view house tasks
 XUser can signup
-  Xsign up page link says sign up instead of sign in
-
-User can select available rooms from house to join
-
 XUser can log in
-
 XUser can log out
 
-User can view their tasks
-XUser can view house tasks
-User can view house completed feed
 
+BUGS
+User can select available rooms from house to join
+User can view house completed feed
 User can assign tasks to other users
+
