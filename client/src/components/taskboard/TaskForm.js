@@ -74,6 +74,7 @@ export default class TaskForm extends React.Component {
     this.setState({
       assignee: e.target.value,
     });
+    console.log(this.state.assignee);
   }
 
   handleDueAtChange(value) {

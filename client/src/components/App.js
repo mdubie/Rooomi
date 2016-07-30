@@ -77,10 +77,10 @@ export default class App extends React.Component {
         <PageNav roommates={this.state.roommates} username={this.state.username} house={this.state.house} />
         <Tabs animation={false} id="uncontrolled-tab-example">
           <Tab eventKey={1} title="Task Manager">
-            <Messenger username={this.state.username} house={this.state.house} socket={this.props.socket} />
+            <TaskManager tasks={this.state.tasks} roommates={this.state.roommates} username={this.state.username} house={this.state.house} socket={this.props.socket} />
           </Tab>
           <Tab eventKey={2} title="Messenger">
-            <TaskManager tasks={this.state.tasks} roommates={this.state.roommates} username={this.state.username} house={this.state.house} socket={this.props.socket} />
+            <Messenger username={this.state.username} house={this.state.house} socket={this.props.socket} />
           </Tab>
         </Tabs>
       </div>
