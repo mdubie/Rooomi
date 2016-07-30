@@ -56,9 +56,10 @@ export default class TaskForm extends React.Component {
       isCompleted: false,
     });
 
+    let date = new Date();
+    date = date.toISOString();
     this.setState({
-      description: '',
-      dueAt: new Date(),
+      dueAt: date,
     });
 
     this.close();
