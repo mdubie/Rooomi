@@ -1,9 +1,10 @@
 import React from 'react';
+import $ from 'jquery';
 import { TaskBoard } from './taskboard/TaskBoard';
 import TaskForm from './taskBoard/TaskForm';
 import { PageNav } from './taskboard/Nav';
 import { CompletedFeed } from './taskboard/CompletedFeed';
-import $ from 'jquery';
+import Messenger from './messenger/Messenger.js';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -78,6 +79,7 @@ export default class App extends React.Component {
         <TaskForm roommates={this.state.roommates} username={this.state.username} house={this.state.house} socket={this.props.socket} />
         <TaskBoard username={this.state.username} tasks={this.state.tasks} house={this.state.house} socket={this.props.socket} />
         <CompletedFeed tasks={this.state.tasks} />
+        <Messenger username={this.state.username} house={this.state.house} socket={this.props.socket} />
       </div>
     );
   }
