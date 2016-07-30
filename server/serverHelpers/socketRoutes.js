@@ -1,5 +1,6 @@
 const taskController = require('../db/task/taskController.js');
 const userController = require('../db/user/userController.js');
+const messageController = require('../db/message/messageController');
 
 module.exports = (socket) => {
   socket.on('getAllTasks', (house) => {
@@ -24,6 +25,18 @@ module.exports = (socket) => {
   socket.on('completeTask', (taskObject) => {
     taskController.completeTask(taskObject, (dbTaskObject) => {
       if (dbTaskObject) { socket.emit('completeTask', dbTaskObject); }
+    });
+  });
+
+  socket.on('getAllMessages', (house) => {
+    messageController.getAllMessages(house, (allMessages) => {
+      socket.emit('getAllMessages', allMessages);
+    });
+  });
+
+  socket.on('addMessage', (msgObject) => {
+    messageController.addMessage(msgObject, (message) => {
+      socket.emit('addMessage', message);
     });
   });
 };
