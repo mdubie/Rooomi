@@ -7,11 +7,7 @@ export default class Messenger extends React.Component {
     super(props);
 
     this.state = {
-      messages: [
-        { username: 'matt', house: 'hr', message: 'yo', time: 'today' },
-        { username: 'steven', house: 'hr', message: 'hey', time: 'tmr' },
-        { username: 'roy', house: 'hr', message: 'dude', time: 'yesterday' },
-      ],
+      messages: [],
     };
   }
 

@@ -16,7 +16,7 @@ export const PageNav = ({ username, roommates, house }) => {
           <NavItem href="/logout">{username}</NavItem>
           <NavItem eventKey={2} href="/home">{house}</NavItem>
           <NavDropdown eventKey={3} title="See Roomates" id="basic-nav-dropdown">
-            {roommates.map((roommate) => (<MenuItem>{roommate}</MenuItem>))}
+            {roommates.map((roommate) => (<MenuItem key={roommate}>{roommate}</MenuItem>))}
           </NavDropdown>
         </Nav>
         <Nav pullRight>
