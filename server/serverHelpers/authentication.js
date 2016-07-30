@@ -1,6 +1,7 @@
 const passport = require('passport');
 const Strategy = require('passport-local').Strategy;
 const User = require('../db/user/userModel.js');
+const FBStrategy = require('passport-facebook').Strategy;
 
 passport.use(new Strategy(
   (username, password, cb) => {
@@ -13,15 +14,29 @@ passport.use(new Strategy(
   })
 );
 
+passport.use(new FBStrategy({
+  clientID: '169564226797360',
+    clientSecret: 'f9a6e6f6a452fb18fa720c89d5ced750',
+    callbackURL: '/login/facebook/return',
+    profileFields: ['id', 'name','picture.type(large)', 'emails', 'displayName', 'about', 'gender']
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    console.log(profile);
+    return cb(null, profile);
+  })
+);
+
 passport.serializeUser(function(user, cb) {
-  cb(null, user._id);
+  // cb(null, user._id);
+  cb(null, user);
 });
 
 passport.deserializeUser(function(id, cb) {
-  User.findOne({_id: id}, function (err, user) {
-    if (err) { return cb(err); }
-    cb(null, user);
-  });
+  cb(null, id);
+  // User.findOne({_id: id}, function (err, user) {
+  //   if (err) { return cb(err); }
+  //   cb(null, user);
+  // });
 });
 
 module.exports = {

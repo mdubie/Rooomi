@@ -2,6 +2,7 @@ const auth = require('./authentication.js');
 const express = require('express');
 const path = require('path');
 
+
 const userController = require('../db/user/userController.js');
 
 const isAuthenticated = (req, res, next) => {
@@ -30,6 +31,15 @@ module.exports = (app) => {
   app.use('/home', isAuthenticated, express.static(path.join(__dirname, '../../client/')));
 
   app.post('/login', auth.passport.authenticate('local', { failureRedirect: '/login', successRedirect: '/home'}));
+
+  app.get('/login/facebook', auth.passport.authenticate('facebook'));
+
+  app.get('/login/facebook/return',
+    auth.passport.authenticate('facebook', {
+        successRedirect: '/',
+        failureRedirect: '/login.html'
+    })
+  );
 
   app.post('/signup', (req, res) => {
     const userCreds = req.body;
