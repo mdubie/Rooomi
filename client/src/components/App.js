@@ -1,14 +1,9 @@
 import React from 'react';
 import { TaskBoard } from './taskboard/TaskBoard';
+import TaskForm from './taskBoard/TaskForm';
 import { Nav } from './taskboard/Nav';
 import { CompletedFeed } from './taskboard/CompletedFeed';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-import TaskForm from './taskBoard/TaskForm';
 import $ from 'jquery';
-
-
-injectTapEventPlugin();
 
 export default class App extends React.Component {
   constructor(props) {
@@ -18,6 +13,7 @@ export default class App extends React.Component {
       username: '',
       house: '',
       tasks: [],
+      roommates: [],
     };
   }
 
@@ -70,17 +66,19 @@ export default class App extends React.Component {
   }
 
   render() {
+    let appStyle = {
+      width: '100%',
+      height: '100%',
+      border: '1px solid #666',
+    };
+
     return (
-      <MuiThemeProvider className="container">
-        <div>
-          <div>
-            <Nav username={this.state.username} />
-            <TaskForm username={this.state.username} house={this.state.house} socket={this.props.socket} />
-            <TaskBoard username={this.state.username} tasks={this.state.tasks} socket={this.props.socket} />
-            <CompletedFeed tasks={this.state.tasks} />
-          </div>
-        </div>
-      </MuiThemeProvider>
+      <div style={appStyle}>
+        <Nav username={this.state.username} />
+        <TaskForm roommates={this.state.roommates} username={this.state.username} house={this.state.house} socket={this.props.socket} />
+        <TaskBoard username={this.state.username} tasks={this.state.tasks} socket={this.props.socket} />
+        <CompletedFeed tasks={this.state.tasks} />
+      </div>
     );
   }
 }

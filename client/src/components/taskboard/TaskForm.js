@@ -1,28 +1,16 @@
 import React from 'react';
-import { Modal, Button } from 'react-bootstrap';
-import TextField from 'material-ui/TextField';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
+import { Modal, Button, FieldGroup, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
+import DatePicker from "react-bootstrap-date-picker";
 
 export default class TaskForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      intervalNum: 0,
-      intervalVal: 1,
-      showModal: false,
-      taskName: '',
-      taskDueDate: '',
-      taskInterval: 0,
+      description: '',
       assignee: '',
+      dueAt: new Date(),
+      showModal: false,
     };
-
-    this.close = this.close.bind(this);
-    this.open = this.open.bind(this);
-    this.handleTextFieldChange = this.handleTextFieldChange.bind(this);
-    this.handleSelectFieldChange = this.handleSelectFieldChange.bind(this);
-    this.calcDueDateAndInterval = this.calcDueDateAndInterval.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   close() {
@@ -37,102 +25,101 @@ export default class TaskForm extends React.Component {
     });
   }
 
-  handleTextFieldChange(e) {
-    const obj = {};
-    obj[e.target.name] = e.target.value;
-    this.setState(obj);
-  }
-
-  handleSelectFieldChange(e, i, v) {
-    this.setState({
-      intervalVal: v,
-    });
-  }
-
-  calcDueDateAndInterval() {
-    const hours = n => 1000 * 60 * 60 * n;
-    const days = n => hours(n) * 24;
-    const n = this.state.intervalNum;
-
-    this.state.intervalVal === 1 ? this.state.taskInterval = hours(n) : days(n);
-    this.state.taskDueDate = new Date(Date.now() + this.state.taskInterval);
-  }
-
   handleSubmit(e) {
     e.preventDefault();
-    this.calcDueDateAndInterval();
 
-    const taskName = this.state.taskName;
+    const description = this.state.description;
     const assignee = this.state.assignee;
     const assignor = this.props.username;
-    const dueDate = this.state.taskDueDate;
-    // const interval = this.state.taskInterval;
+    const house = this.props.house;
+    const dueAt = this.state.dueAt;
 
-  // Break out of the handleSubmit if there is no taskname or duedate
-    if (!taskName || !dueDate) {
+    if (!description || !dueAt || !assignee) {
       this.close();
       return;
     }
-  // Emit the taskObj to the server created from the modal.
+
     this.props.socket.emit('addTask', {
-      description: taskName,
+      description,
       assignee,
       assignor,
-      house: this.props.house,
-      dueAt: dueDate,
+      house,
+      dueAt,
       isCompleted: false,
     });
-  // State will update and reset taskName and due date back to '';
+
     this.setState({
-      taskName: '',
-      taskDueDate: '',
+      description: '',
+      dueAt: new Date(),
     });
-  // Close the modal once code is complete.
+
     this.close();
+  }
+
+  handleDesciptionChange(e) {
+    this.setState({
+      description: e.target.value,
+    });
+  }
+
+  handleRoommateChange(e) {
+    this.setState({
+      assignee: e.target.value,
+    });
+  }
+
+  handleDueAtChange(value) {
+    this.setState({
+      dueAt: value,
+    });
   }
 
   render() {
     return (
-      <div onClick={this.open}>
-        <img
-          className="addTask"
-          alt="addTask"
-          src="http://bit.ly/29UZrXq"
-        />
-        <Modal
-          bsSize="small"
-          show={this.state.showModal}
-          onHide={this.close}
+      <div>
+        <Button
+          bsStyle="primary"
+          bsSize="large"
+          onClick={this.open.bind(this)}
         >
+          Add a new roomate task!
+        </Button>
+        <Modal show={this.state.showModal} onHide={this.close.bind(this)}>
           <Modal.Header closeButton>
-            <Modal.Title>Add Task</Modal.Title>
+            <Modal.Title>Modal heading</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <TextField
-              name="taskName"
-              hintText="Enter a new task!"
-              onChange={this.handleTextFieldChange}
-            />
-            <TextField
-              name="assignee"
-              hintText="Assign to:"
-              onChange={this.handleTextFieldChange}
-            />
-            <TextField
-              type="number"
-              name="intervalNum"
-              defaultValue="1"
-              onChange={this.handleTextFieldChange}
-              floatingLabelText="Complete by:"
-              floatingLabelFixed={true}
-            />
-            <SelectField value={this.state.intervalVal} onChange={this.handleSelectFieldChange}>
-              <MenuItem value={1} primaryText="hour(s)" />
-              <MenuItem value={2} primaryText="day(s)" />
-            </SelectField>
+            <form>
+              <FormGroup >
+                <ControlLabel>Working example with validation</ControlLabel>
+                <FormControl
+                  type="text"
+                  value={this.state.description}
+                  placeholder="Enter task description here"
+                  onChange={this.handleDesciptionChange.bind(this)}
+                />
+              </FormGroup>
+              <FormGroup controlId="formControlsSelect">
+                <ControlLabel>Select a roomate</ControlLabel>
+                <FormControl
+                  componentClass="select"
+                  placeholder="select"
+                  onChange={this.handleRoommateChange.bind(this)}
+                >
+                  {this.props.roommates.map(roomate => <option value={roomate}>{roomate}</option>)}
+                </FormControl>
+              </FormGroup>
+              <FormGroup>
+                <ControlLabel>Label</ControlLabel>
+                <DatePicker
+                  value={this.state.dueAt}
+                  onChange={this.handleDueAtChange.bind(this)} />
+              </FormGroup>
+            </form>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.handleSubmit}>Add Task</Button>
+            <Button onClick={this.handleSubmit.bind(this)} bsStyle="success">Add task</Button>
+            <Button onClick={this.close.bind(this)}>Close</Button>
           </Modal.Footer>
         </Modal>
       </div>
