@@ -24,7 +24,10 @@ module.exports = (socket) => {
 
   socket.on('completeTask', (taskObject) => {
     taskController.completeTask(taskObject, (dbTaskObject) => {
-      if (dbTaskObject) { socket.emit('completeTask', dbTaskObject); }
+      if (dbTaskObject) {
+        dbTaskObject.isCompleted = true;
+        socket.emit('completeTask', dbTaskObject);
+      }
     });
   });
 
