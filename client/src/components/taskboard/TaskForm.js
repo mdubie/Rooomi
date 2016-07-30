@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Button, FieldGroup, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
+import { Modal, Button, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 import DatePicker from "react-bootstrap-date-picker";
 
 export default class TaskForm extends React.Component {

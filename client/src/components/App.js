@@ -1,10 +1,9 @@
 import React from 'react';
 import $ from 'jquery';
-import { TaskBoard } from './taskboard/TaskBoard';
-import TaskForm from './taskBoard/TaskForm';
 import { PageNav } from './taskboard/Nav';
-import { CompletedFeed } from './taskboard/CompletedFeed';
 import Messenger from './messenger/Messenger.js';
+import { Tabs, Tab } from 'react-bootstrap';
+import { TaskManager } from './taskboard/TaskManager.js';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -74,13 +73,18 @@ export default class App extends React.Component {
     };
 
     return (
-      <div style={appStyle}>
+      <div className="appBody">
         <PageNav roommates={this.state.roommates} username={this.state.username} house={this.state.house} />
-        <TaskForm roommates={this.state.roommates} username={this.state.username} house={this.state.house} socket={this.props.socket} />
-        <TaskBoard username={this.state.username} tasks={this.state.tasks} house={this.state.house} socket={this.props.socket} />
-        <CompletedFeed tasks={this.state.tasks} />
-        <Messenger username={this.state.username} house={this.state.house} socket={this.props.socket} />
+        <Tabs animation={false} id="uncontrolled-tab-example">
+          <Tab eventKey={1} title="Task Manager">
+            <Messenger username={this.state.username} house={this.state.house} socket={this.props.socket} />
+          </Tab>
+          <Tab eventKey={2} title="Messenger">
+            <TaskManager tasks={this.state.tasks} roommates={this.state.roommates} username={this.state.username} house={this.state.house} socket={this.props.socket} />
+          </Tab>
+        </Tabs>
       </div>
     );
   }
 }
+
