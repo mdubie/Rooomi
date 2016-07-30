@@ -12,7 +12,7 @@ const isAuthenticated = (req, res, next) => {
 
 module.exports = (app) => {
   app.get('/', (req, res) => {
-    const url = req.user ? '/home' : '/login';
+    const url = req.user ? `/home?username=${req.user.username}&house=${req.user.house}` : '/login';
     res.redirect(url);
   });
 
@@ -30,7 +30,7 @@ module.exports = (app) => {
 
   app.use('/home', isAuthenticated, express.static(path.join(__dirname, '../../client/')));
 
-  app.post('/login', auth.passport.authenticate('local', { failureRedirect: '/login', successRedirect: '/home'}));
+  app.post('/login', auth.passport.authenticate('local', { failureRedirect: '/login', successRedirect: '/'}));
 
   app.get('/login/facebook', auth.passport.authenticate('facebook'));
 

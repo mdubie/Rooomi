@@ -5,6 +5,7 @@ import Messenger from './messenger/Messenger.js';
 import { Tabs, Tab } from 'react-bootstrap';
 import { TaskManager } from './taskboard/TaskManager.js';
 
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -18,6 +19,8 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
+    // console.log('this.props.location.query ' , this.props);
+
     const socket = this.props.socket;
 
     const self = this;
