@@ -29,7 +29,6 @@ module.exports = (socket) => {
   });
 
   socket.on('getAllMessages', (house) => {
-    console.log('house ' , house);
     messageController.getAllMessages(house, (allMessages) => {
       socket.emit('getAllMessages', allMessages);
     });
