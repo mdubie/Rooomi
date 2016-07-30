@@ -5,7 +5,7 @@ import moment from 'moment';
 
 export const TaskListEntry = ({ isUser, username, task, socket }) => {
   const button = (
-    <Button bsStyle="primary" onClick={() => { if (isUser) { socket.emit('completeTask', task); } }}>
+    <Button bsStyle="success" onClick={() => { if (isUser) { socket.emit('completeTask', task); } }}>
       Task completed
     </Button>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Button, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
+import { Modal, Button, ButtonGroup, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 import DatePicker from "react-bootstrap-date-picker";
 
 export default class TaskForm extends React.Component {
@@ -92,13 +92,14 @@ export default class TaskForm extends React.Component {
     };
 
     return (
-      <div style={modalStyle}>
+      <ButtonGroup vertical block style={modalStyle}>
         <Button
           bsStyle="primary"
-          bsSize="small"
+          bsSize="large"
+          style={{ background: 'd3d3d3' }}
           onClick={this.open.bind(this)}
         >
-          Add a new roomate task!
+          New Roomi Task
         </Button>
         <Modal show={this.state.showModal} onHide={this.close.bind(this)}>
           <Modal.Header closeButton>
@@ -140,7 +141,7 @@ export default class TaskForm extends React.Component {
             <Button onClick={this.close.bind(this)}>Close</Button>
           </Modal.Footer>
         </Modal>
-      </div>
+      </ButtonGroup>
     );
   }
 }
