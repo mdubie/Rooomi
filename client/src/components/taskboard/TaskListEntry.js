@@ -1,23 +1,13 @@
 import React from 'react';
+import { ListGroupItem } from 'react-bootstrap';
+
 
 export const TaskListEntry = ({ username, task, socket }) => {
-  let style = {
-    height: 100,
-    width: 100,
-    margin: 10,
-    textAlign: 'center',
-    display: 'inline-block',
-    overflow: 'hidden',
-  };
-
   return (
-    <div
-      style={style}
+    <ListGroupItem
       onClick={() => { if (username === task.assignee) { socket.emit('completeTask', task); } }}
     >
-      <div className="innerTaskText">
-        {task.description} - Assignor: {task.assignor} - Assignee: {task.assignee}
-      </div>
-    </div>
+      {task.description} - Assignor: {task.assignor} - Assignee: {task.assignee}
+    </ListGroupItem>
   );
 };

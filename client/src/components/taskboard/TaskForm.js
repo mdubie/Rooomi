@@ -75,11 +75,17 @@ export default class TaskForm extends React.Component {
   }
 
   render() {
+    const modalStyle = {
+      width: '100%',
+      height: '10%',
+      margin: 'auto auto',
+    }
+
     return (
-      <div>
+      <div style={modalStyle}>
         <Button
           bsStyle="primary"
-          bsSize="large"
+          bsSize="small"
           onClick={this.open.bind(this)}
         >
           Add a new roomate task!

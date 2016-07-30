@@ -1,7 +1,7 @@
 import React from 'react';
 import { TaskBoard } from './taskboard/TaskBoard';
 import TaskForm from './taskBoard/TaskForm';
-import { Nav } from './taskboard/Nav';
+import { PageNav } from './taskboard/Nav';
 import { CompletedFeed } from './taskboard/CompletedFeed';
 import $ from 'jquery';
 
@@ -74,9 +74,9 @@ export default class App extends React.Component {
 
     return (
       <div style={appStyle}>
-        <Nav username={this.state.username} />
+        <PageNav roommates={this.state.roommates} username={this.state.username} house={this.state.house} />
         <TaskForm roommates={this.state.roommates} username={this.state.username} house={this.state.house} socket={this.props.socket} />
-        <TaskBoard username={this.state.username} tasks={this.state.tasks} socket={this.props.socket} />
+        <TaskBoard username={this.state.username} tasks={this.state.tasks} house={this.state.house} socket={this.props.socket} />
         <CompletedFeed tasks={this.state.tasks} />
       </div>
     );

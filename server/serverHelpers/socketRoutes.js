@@ -17,7 +17,6 @@ module.exports = (socket) => {
   });
 
   socket.on('addTask', (taskObject) => {
-  console.log('taskObject ' , taskObject);
     taskController.addTask(taskObject, (dbTaskObject) => {
       if (dbTaskObject) { socket.emit('addTask', dbTaskObject); }
     });

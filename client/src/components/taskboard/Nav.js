@@ -1,26 +1,28 @@
 import React from 'react';
+import { Navbar, NavItem, Nav, NavDropdown, MenuItem } from 'react-bootstrap';
 
-export const Nav = ({ username }) => {
-  let navStyle = {
-    width: '100%',
-    height: '10%',
-    border: '1px solid #666',
-  };
 
-  let headerStyle = {
-    display: 'inline',
-    float: 'left',
-  };
-
-  let linkStyle = {
-    display: 'inline',
-    float: 'right',
-  };
-
+export const PageNav = ({ username, roommates, house }) => {
   return (
-    <div style={navStyle}>
-      <h1 style={headerStyle}>Roomi</h1>
-      <a style={linkStyle} href="/logout">logout</a>
-    </div>
+    <Navbar inverse>
+      <Navbar.Header>
+        <Navbar.Brand>
+          <a href="/home">Roomi</a>
+        </Navbar.Brand>
+        <Navbar.Toggle />
+      </Navbar.Header>
+      <Navbar.Collapse>
+        <Nav>
+          <NavItem href="/logout">{username}</NavItem>
+          <NavItem eventKey={2} href="/home">{house}</NavItem>
+          <NavDropdown eventKey={3} title="See Roomates" id="basic-nav-dropdown">
+            {roommates.map((roommate) => (<MenuItem>{roommate}</MenuItem>))}
+          </NavDropdown>
+        </Nav>
+        <Nav pullRight>
+          <NavItem eventKey={4} href="/logout">Logout</NavItem>
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
   );
 };
