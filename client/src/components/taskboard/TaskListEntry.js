@@ -1,9 +1,7 @@
 import React from 'react';
 import Paper from 'material-ui/Paper';
-import socket from './sockio';
 
-
-export const TaskListEntry = ({ task }) => {
+export const TaskListEntry = ({ username, task, socket }) => {
   let style = {
     height: 100,
     width: 100,
@@ -13,16 +11,11 @@ export const TaskListEntry = ({ task }) => {
     overflow: 'hidden',
   };
 
-  completeTask() {
-    console.log('comp', task)
-    socket.emit('completeTask', task)
-  }
-
   return (
     <div>
       <Paper
         style={style}
-        onClick={ this.completeTask }}
+        onClick={() => { if (username === task.assignee) { socket.emit('completeTask', task); } }}
       >
         <div className="innerTaskText">
           {task.description} - Assignor: {task.assignor} - Assignee: {task.assignee}

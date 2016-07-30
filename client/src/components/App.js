@@ -7,7 +7,6 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import TaskForm from './taskBoard/TaskForm';
 import $ from 'jquery';
 
-import socket from './taskBoard/sockio';
 
 injectTapEventPlugin();
 
@@ -23,6 +22,8 @@ export default class App extends React.Component {
   }
 
   componentWillMount() {
+    const socket = this.props.socket;
+
     const self = this;
     $.ajax({
       method: 'GET',
@@ -32,8 +33,8 @@ export default class App extends React.Component {
         house: data.house,
         username: data.username,
       });
-      socket.emit('getAllTasks', this.state.house);
       socket.emit('getAllUsers', this.state.house);
+      socket.emit('getAllTasks', this.state.house);
     });
 
     socket.on('allUsers', (allUsers) => {
@@ -49,20 +50,22 @@ export default class App extends React.Component {
     });
 
     socket.on('addTask', (taskObj) => {
+      const newTasks = this.state.tasks.concat(taskObj);
       this.setState({
-        tasks: this.state.tasks.concat(taskObj),
+        tasks: newTasks,
       });
     });
 
     socket.on('completeTask', (taskObj) => {
-      const returnedTask = taskObj;
-      this.setState({
-        tasks: this.state.tasks.map((task) => {
-          if (task._id === returnedTask._id) {
-            !task.isCompleted
-          }
-        })
-      });
+      if (taskObj) {
+        const newTasks = this.state.tasks.slice();
+        const taskIds = newTasks.slice().map(task => task._id);
+        const index = taskIds.indexOf(taskObj._id);
+        newTasks[index] = taskObj;
+        this.setState({
+          tasks: newTasks,
+        });
+      }
     });
   }
 
@@ -72,8 +75,8 @@ export default class App extends React.Component {
         <div>
           <div>
             <Nav username={this.state.username} />
-            <TaskForm username={this.state.username} house={this.state.house} />
-            <TaskBoard username={this.state.username} tasks={this.state.tasks} />
+            <TaskForm username={this.state.username} house={this.state.house} socket={this.props.socket} />
+            <TaskBoard username={this.state.username} tasks={this.state.tasks} socket={this.props.socket} />
             <CompletedFeed tasks={this.state.tasks} />
           </div>
         </div>
