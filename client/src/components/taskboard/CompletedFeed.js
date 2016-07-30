@@ -6,7 +6,7 @@ export const CompletedFeed = ({ tasks }) => {
   return (
     <Panel bsStyle="info" collapsible defaultExpanded header="Completed Feed">
       <ListGroup fill>
-        {tasks.map((task) => <CompletedFeedEntry key={task._id} task={task} />)}
+        {tasks.slice(0, 30).map((task) => <CompletedFeedEntry key={task._id} task={task} />)}
       </ListGroup>
     </Panel>
   );

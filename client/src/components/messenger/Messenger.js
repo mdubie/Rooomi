@@ -16,13 +16,13 @@ export default class Messenger extends React.Component {
 
     socket.on('getAllMessages', (allMessages) => {
       this.setState({
-        messages: allMessages,
+        messages: allMessages.reverse(),
       });
     });
 
     socket.on('addMessage', (newMessage) => {
       const newMessages = this.state.messages;
-      newMessages.push(newMessage);
+      newMessages.unshift(newMessage);
       this.setState({
         messages: newMessages,
       });

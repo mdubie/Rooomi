@@ -43,12 +43,13 @@ export default class App extends React.Component {
 
     socket.on('allTasks', (allTasks) => {
       this.setState({
-        tasks: allTasks,
+        tasks: allTasks.reverse(),
       });
     });
 
     socket.on('addTask', (taskObj) => {
-      const newTasks = this.state.tasks.concat(taskObj);
+      const newTasks = this.state.tasks;
+      newTasks.unshift(taskObj);
       this.setState({
         tasks: newTasks,
       });

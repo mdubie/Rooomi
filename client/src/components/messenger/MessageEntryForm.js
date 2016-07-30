@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Button, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
+import { Modal, Button, FormGroup, ButtonGroup, FormControl } from 'react-bootstrap';
 
 export default class MessageEntryForm extends React.Component {
   constructor(props) {
@@ -62,10 +62,11 @@ export default class MessageEntryForm extends React.Component {
     };
 
     return (
-      <div style={modalStyle}>
+      <ButtonGroup vertical block style={modalStyle}>
         <Button
           bsStyle="primary"
-          bsSize="small"
+          bsSize="large"
+          style={{ background: '#001f3f' }}
           onClick={this.open.bind(this)}
         >
           Add a new message!
@@ -91,7 +92,7 @@ export default class MessageEntryForm extends React.Component {
             <Button onClick={this.close.bind(this)}>Close</Button>
           </Modal.Footer>
         </Modal>
-      </div>
+      </ButtonGroup>
     );
   }
 }

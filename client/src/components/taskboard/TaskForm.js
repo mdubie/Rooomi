@@ -96,19 +96,19 @@ export default class TaskForm extends React.Component {
         <Button
           bsStyle="primary"
           bsSize="large"
-          style={{ background: 'd3d3d3' }}
+          style={{ background: '#001f3f' }}
           onClick={this.open.bind(this)}
         >
           New Roomi Task
         </Button>
         <Modal show={this.state.showModal} onHide={this.close.bind(this)}>
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>Add new task</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <form>
               <FormGroup >
-                <ControlLabel>Working example with validation</ControlLabel>
+                <ControlLabel>Give a roomie a task</ControlLabel>
                 <FormControl
                   type="text"
                   value={this.state.description}
@@ -129,7 +129,7 @@ export default class TaskForm extends React.Component {
                 </FormControl>
               </FormGroup>
               <FormGroup>
-                <ControlLabel>Label</ControlLabel>
+                <ControlLabel>Select a due date</ControlLabel>
                 <DatePicker
                   value={this.state.dueAt}
                   onChange={this.handleDueAtChange.bind(this)} />

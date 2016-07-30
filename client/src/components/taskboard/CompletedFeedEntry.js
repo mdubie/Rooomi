@@ -3,7 +3,7 @@ import { ListGroupItem } from 'react-bootstrap';
 
 const CompletedFeedEntry = ({ task }) => (
   <ListGroupItem >
-    {task.description} - Assignor: {task.assignor} - Assignee: {task.assignee}
+    {`${task.assignee} completed ${task.description} given from ${task.assignor}`}
   </ListGroupItem>
 );
 

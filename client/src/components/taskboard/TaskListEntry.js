@@ -14,12 +14,12 @@ export const TaskListEntry = ({ isUser, username, task, socket }) => {
 
   return (
     <ListGroupItem>
-      <div>
+      <div style={{display: 'inline-block'}}>
         <h4>{`${task.assignee}'s task`}</h4>
         <p>{task.description}</p>
-        <p>{`assigned by ${task.assignor} and due ${moment(task.dueAt).fromNow()}`}</p>
+        <p style={{fontStyle: 'italic'}}>{`assigned by ${task.assignor} due ${moment(task.dueAt).fromNow()}`}</p>
       </div>
-      <div>
+      <div style={{display: 'inline-block', float: 'right'}}>
         {render}
       </div>
     </ListGroupItem>
