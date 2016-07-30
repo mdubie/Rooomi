@@ -1,5 +1,6 @@
 import React from 'react';
 import { ListGroupItem } from 'react-bootstrap';
+import moment from 'moment';
 
 
 export const TaskListEntry = ({ isUser, username, task, socket }) => {
@@ -7,7 +8,9 @@ export const TaskListEntry = ({ isUser, username, task, socket }) => {
     <ListGroupItem
       onClick={() => { if (isUser) { socket.emit('completeTask', task); } }}
     >
-      {task.description} - Assignor: {task.assignor} - Assignee: {task.assignee}
+      <h4>{`${task.assignee}'s task`}</h4>
+      <p>{task.description}</p>
+      <p>{`assigned by ${task.assignor} and due ${moment(task.dueAt).fromNow()}`}</p>
     </ListGroupItem>
   );
 };

@@ -89,7 +89,7 @@ export default class TaskForm extends React.Component {
       width: '100%',
       height: '10%',
       margin: 'auto auto',
-    }
+    };
 
     return (
       <div style={modalStyle}>
