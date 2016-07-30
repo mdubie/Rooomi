@@ -1,17 +1,9 @@
 import React from 'react';
 import Paper from 'material-ui/Paper';
+import socket from './sockio';
 
 
-// let style = {
-//   height: 50,
-//   width: 50,
-//   margin: 10,
-//   textAlign: 'center',
-//   display: 'inline-block',
-//   overflow: 'hidden',
-// };
-
-export const TaskListEntry = ({ tasks, completeTask }) => {
+export const TaskListEntry = ({ task }) => {
   let style = {
     height: 100,
     width: 100,
@@ -21,16 +13,19 @@ export const TaskListEntry = ({ tasks, completeTask }) => {
     overflow: 'hidden',
   };
 
+  completeTask() {
+    console.log('comp', task)
+    socket.emit('completeTask', task)
+  }
+
   return (
     <div>
       <Paper
         style={style}
-        zDepth={3}
-        circle={true}
-        onTouchTap={() => completeTask(tasks)}   
+        onClick={ this.completeTask }}
       >
         <div className="innerTaskText">
-          {tasks.description} - Assignor: {tasks.assignor} - Assignee: {tasks.assignee}
+          {task.description} - Assignor: {task.assignor} - Assignee: {task.assignee}
         </div>
       </Paper>
     </div>
