@@ -13,8 +13,8 @@ import Paper from 'material-ui/Paper';
 
 export const TaskListEntry = ({ tasks, completeTask }) => {
   let style = {
-    height: 50,
-    width: 50,
+    height: 100,
+    width: 100,
     margin: 10,
     textAlign: 'center',
     display: 'inline-block',
@@ -27,10 +27,10 @@ export const TaskListEntry = ({ tasks, completeTask }) => {
         style={style}
         zDepth={3}
         circle={true}
-        onTouchTap={() => completeTask()}
+        onTouchTap={() => completeTask(tasks)}   
       >
         <div className="innerTaskText">
-          {tasks.description} - {tasks.assignor}
+          {tasks.description} - Assignor: {tasks.assignor} - Assignee: {tasks.assignee}
         </div>
       </Paper>
     </div>

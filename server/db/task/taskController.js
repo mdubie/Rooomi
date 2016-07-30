@@ -13,10 +13,10 @@ module.exports = {
   addTask(taskObject, callback) {
     Task
       .create({
-        desciption: taskObject.desciption,
+        description: taskObject.description,
         assignee: taskObject.assignee,
         assignor: taskObject.assignor,
-        house: taskObject.assignor,
+        house: taskObject.house,
         createdAt: taskObject.createdAt,
         dueAt: taskObject.dueAt,
         isCompleted: taskObject.isCompleted,
