@@ -71,11 +71,7 @@ export default class App extends React.Component {
     return (
       <div className="appBody">
         <PageNav roommates={this.state.roommates} username={this.state.username} house={this.state.house} />
-<<<<<<< HEAD
         <Tabs style={{height: '50%'}} animation={false} id="uncontrolled-tab-example">
-=======
-        <Tabs id="uncontrolled-tab-example">
->>>>>>> styling
           <Tab eventKey={1} title="Task Manager">
             <TaskManager tasks={this.state.tasks} roommates={this.state.roommates} username={this.state.username} house={this.state.house} socket={this.props.socket} />
           </Tab>
