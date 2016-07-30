@@ -38,7 +38,7 @@ export default class MessageEntryForm extends React.Component {
       username,
       house,
       message,
-      time: Date.now()
+      time: Date.now(),
     });
 
     this.setState({
@@ -59,7 +59,7 @@ export default class MessageEntryForm extends React.Component {
       width: '100%',
       height: '10%',
       margin: 'auto auto',
-    }
+    };
 
     return (
       <div style={modalStyle}>
@@ -72,12 +72,11 @@ export default class MessageEntryForm extends React.Component {
         </Button>
         <Modal show={this.state.showModal} onHide={this.close.bind(this)}>
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>Add a new message!</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <form>
               <FormGroup >
-                <ControlLabel>Working example with validation</ControlLabel>
                 <FormControl
                   type="text"
                   value={this.state.message}
@@ -88,7 +87,7 @@ export default class MessageEntryForm extends React.Component {
             </form>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.handleSubmit.bind(this)} bsStyle="success">Add task</Button>
+            <Button onClick={this.handleSubmit.bind(this)} bsStyle="success">Add message</Button>
             <Button onClick={this.close.bind(this)}>Close</Button>
           </Modal.Footer>
         </Modal>

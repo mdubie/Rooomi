@@ -19,8 +19,6 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    // console.log('this.props.location.query ' , this.props);
-
     const socket = this.props.socket;
 
     const self = this;
@@ -68,14 +66,8 @@ export default class App extends React.Component {
       }
     });
   }
-  
-  render() {
-    let appStyle = {
-      width: '100%',
-      height: '100%',
-      border: '1px solid #666',
-    };
 
+  render() {
     return (
       <div className="appBody">
         <PageNav roommates={this.state.roommates} username={this.state.username} house={this.state.house} />
