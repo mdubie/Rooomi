@@ -42,7 +42,7 @@ export default class TaskForm extends React.Component {
     const house = this.props.house;
     const dueAt = this.state.dueAt;
 
-    if (!description || !dueAt || !assignee) {
+    if (!description || !dueAt || !assignee || assignee === 'select') {
       this.close();
       return;
     }
@@ -60,6 +60,7 @@ export default class TaskForm extends React.Component {
     date = date.toISOString();
     this.setState({
       dueAt: date,
+      description: '',
     });
 
     this.close();
@@ -75,7 +76,6 @@ export default class TaskForm extends React.Component {
     this.setState({
       assignee: e.target.value,
     });
-    console.log(this.state.assignee);
   }
 
   handleDueAtChange(value) {
@@ -89,7 +89,7 @@ export default class TaskForm extends React.Component {
       width: '100%',
       height: '10%',
       margin: 'auto auto',
-    }
+    };
 
     return (
       <div style={modalStyle}>
@@ -120,8 +120,10 @@ export default class TaskForm extends React.Component {
                 <FormControl
                   componentClass="select"
                   placeholder="select"
+                  value={this.state.assignee}
                   onChange={this.handleRoommateChange.bind(this)}
                 >
+                  <option value="select">select</option>
                   {this.props.roommates.map(roomate => <option key={roomate} value={roomate}>{roomate}</option>)}
                 </FormControl>
               </FormGroup>
